@@ -8,7 +8,7 @@ import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
-// dynamic routing isnt working, error message isnt working
+// dynamic routing isnt working, 
 
 const AppLayout = () => {
   return (
@@ -23,13 +23,13 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout/>,
-  children: [
+    errorElement: <Error/>,
+    children: [
     {
       path: "/",
-      element: <body/>,
+      element: <Body/>,
 
     },
-  
     {
       path: "/about",
       element: <About/>,
@@ -40,12 +40,11 @@ const appRouter = createBrowserRouter([
       element: <Contact />,
     },
     {
-      path: "/rest/:resId",
-      element: <RestaurantMenu/>,
+      path: "/restaurants/:resId",
+      element: <RestaurantMenu/>
     },
-  ],
-  errorElement: <Error/>
-},
+    ], 
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

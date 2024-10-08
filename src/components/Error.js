@@ -8,10 +8,10 @@ const Error = () => {
     <div>
         <h1>Oops</h1>
         <h2>Looks like something isnt right.</h2>
-        <h3>{err.status}: {err.status.text}</h3>
+        <h3>{err.status}: {err.statusText}</h3>
 
     </div>
   )
 }
 
-export default Error
+export default Error;

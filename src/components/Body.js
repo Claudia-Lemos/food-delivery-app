@@ -1,7 +1,8 @@
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
-
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -20,13 +21,24 @@ const Body = () => {
 
 const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5204303&lng=73.8567437&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
 
-
     const json = await data.json();
-    console.log(json);
+  
     setListOfRestaurants(
       json.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
+    setFliteredRestaurants(
+      json.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
+
+  const onlineStatus = useOnlineStatus();
+
+  if (onlineStatus === false)
+    return (
+ <h1> Oh ho, looks like our connection is broken, please check your internet and try again</h1>
+    )
+
+
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -60,10 +72,10 @@ const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swig
       <div className="res-container">
         {fliteredRestaurants.length > 0
           ? fliteredRestaurants.map((restaurant) => (
-              <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+             <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}> <RestaurantCard key={restaurant.info.id} resData={restaurant} /></Link>
             ))
           : listOfRestaurants.map((restaurant) => (
-              <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+            <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}> <RestaurantCard resData={restaurant} /></Link>
             ))}
       </div>
     </div>
