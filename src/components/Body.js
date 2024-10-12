@@ -44,7 +44,7 @@ const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swig
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
+      <div className="flex p-3">
         <div className="search">
          <input type="text" className="search-box" value={searchText} onChange={(e)=>{setSearchText(e.target.value)}} />
           <button 
@@ -69,7 +69,7 @@ const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swig
           Top Rated Restaurant
         </button>
       </div>
-      <div className="res-container">
+      <div className="flex p2">
         {fliteredRestaurants.length > 0
           ? fliteredRestaurants.map((restaurant) => (
              <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}> <RestaurantCard key={restaurant.info.id} resData={restaurant} /></Link>
