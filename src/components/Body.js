@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -9,6 +9,8 @@ const Body = () => {
   const [fliteredRestaurants, setFliteredRestaurants] = useState([]);
 
   const [searchText, setSearchText] = useState("");
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   //Do lazy loading for list of restaurants....chapter 6.1(at the end)...fetch post call.
   //Get swiggy other features....deal for the day....whats on your mind...etc
@@ -69,7 +71,8 @@ const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swig
           Top Rated Restaurant
         </button>
       </div>
-      <div className="flex p2">
+
+      {/* <div className="flex p2">
         {fliteredRestaurants.length > 0
           ? fliteredRestaurants.map((restaurant) => (
              <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}> <RestaurantCard key={restaurant.info.id} resData={restaurant} /></Link>
@@ -77,7 +80,20 @@ const data = await fetch("https://thingproxy.freeboard.io/fetch/https://www.swig
           : listOfRestaurants.map((restaurant) => (
             <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}> <RestaurantCard resData={restaurant} /></Link>
             ))}
-      </div>
+      </div> */}
+
+<div>
+  <div className="flex flex-wrap">
+    {fliteredRestaurants.map((restaurant)=>(
+      <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id} >
+        {restaurant.info.promoted ? (<RestaurantCardPromoted resData={restaurant}/> ) : ( <RestaurantCard resData={restaurant}/>)}
+      </Link>
+    ))}
+
+  </div>
+</div>
+
+
     </div>
   );
 };
