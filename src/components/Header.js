@@ -2,7 +2,7 @@ import { CON_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import "../../"
+import "../../style.css"
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
