@@ -1,15 +1,22 @@
+import { useState } from "react";
 import ItemList from "./ItemList"
 
 
-const RestaurantCategory = ({data}) => {
+const RestaurantCategory = ({data, showItems, setShowIndex}) => {
 
-const items = data.itemCards;
+    const handleClick = () => {
+        setShowIndex();
+     };
+
+
+    const items = data.itemCards;
 console.log(items);
 
 
+
 return (
-    <div>
-    <div className="w-6/12 mx-auto my-4 bg-gray-50 shadow-lg p-4 flex flex-col items-center">
+    <div className="w-6/12 mx-auto my-4 bg-gray-50 shadow-lg p-4">
+    <div className="flex justify-between cursor-pointer" onClick={handleClick} >
         <span className="font-bold text-lg">
             {data.title} 
             { data.itemCards ? `(${data.itemCards.length})` : `(${data.categories.length})` }
@@ -23,10 +30,10 @@ return (
             </div>
         ))} */}
 
-    </div>
-    {Array.isArray(items) && <ItemList items={items}/>}    
-</div>
     
+    {showItems && <ItemList items={items}/>}    
+</div>
+</div>
   )}
 
 
